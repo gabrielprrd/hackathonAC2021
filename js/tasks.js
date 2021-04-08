@@ -6,7 +6,7 @@ const taskslistContainer = document.getElementById("tasks-list-container");
 const pageContainer = document.getElementById("page-container")
 const welcomeH1 = document.getElementById("welcome-h1");
 const submitButton = $("#submit-button");
-const tasks = [];
+let tasks = [];
 
 // updates and display Welcome Message
 function displayWelcomeMessage() {
@@ -77,8 +77,11 @@ function setLocalStorage(tasks) {
 function getLocalStorageTasks() {
 
     const store = JSON.parse(localStorage.getItem("tasks"));
+
     // turn object into array to use foreach function and display tasks
-    Array.from(store).forEach(elem => renderTask(elem));
+    if (store !== null) {
+        Array.from(store).forEach(elem => renderTask(elem));
+    }
 
     return store;
 }
@@ -116,6 +119,13 @@ addTaskButton.addEventListener("click", createTask);
 submitButton.click(handleSubmit);
 
 window.onload = function() {
-    getLocalStorageTasks();
-    displayWelcomeMessage();
+    
+    if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
+
+        tasks = getLocalStorageTasks();
+        displayWelcomeMessage();
+    } else {
+        window.location.replace("http://localhost:5500/views/login.html");
+    }
+
 }

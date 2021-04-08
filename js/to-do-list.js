@@ -1,12 +1,14 @@
 const ul = document.getElementById("myUL");
 
 window.onload = function () {
-  renderTasks();
-  if (getLocalSto) {
-    
+
+  if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
+    displayWelcomeMessage();
+    renderTasks();
   } else {
-    
+    window.location.replace("http://localhost:5500/views/login.html");
   }
+
 }
 
 // get persisted information from localStorage
@@ -22,7 +24,9 @@ function getLocalStorageTasks() {
 function renderTasks() {
   const tasks = JSON.parse(localStorage.getItem("tasks"));
 
-  Array.from(tasks).forEach(element => renderTask(element));
+  if (tasks != null) {
+    Array.from(tasks).forEach(element => renderTask(element));
+  }
 }
 
 function renderTask(taskValue) {
@@ -30,23 +34,13 @@ function renderTask(taskValue) {
   // creates list item and append the task value
   const li = document.createElement("li");
   const text = document.createTextNode(taskValue);
-  li.appendChild(text);
+  const p = document.createElement("p");
+  p.appendChild(text);
+  li.appendChild(p);
   ul.appendChild(li);
   
   // sets input value to every list item
-  // p.innerHTML = `<p class="task">${taskValue}</p>`;
-  // appendRemoveButton(p);
-}
-
-/* Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+  appendRemoveButton(li);
 }
 
 // Click on a close button to hide the current list item
@@ -57,7 +51,7 @@ for (i = 0; i < close.length; i++) {
     var div = this.parentElement;
     div.style.display = "none";
   }
-}*/
+}
 
 // Put item in done tasks list when clicked
 var list = document.querySelector('ul');
@@ -68,39 +62,63 @@ list.addEventListener('click', function(ev) {
   }
 }, false);
 
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-}
-
 // make sure application has persistence on browser
-function setLocalStorage(doneTasks) {
-  localStorage.setItem("doneTasks", JSON.stringify(doneTasks));
+function setLocalStorage(tasks) {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function didTask(ev) {
   var doneTask = ev.target;
   document.getElementById("myDoneTasks").appendChild(doneTask);
+}
+
+// updates and display Welcome Message
+function displayWelcomeMessage() {
+    
+  welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${getLocalStorageUsername()}</h1>`
+}
+
+// get persisted information from localStorage
+function getLocalStorageUsername() {
+
+  const username = JSON.parse(localStorage.getItem("username"));
+  // turn object into array to use foreach function and display tasks
+
+  return username;
+}
+
+// append a remove button on each task before user decide to submit
+function appendRemoveButton(element) {
+    
+  const button = document.createElement("button");
+  button.classList.add("remove-button");
+  const buttonText = document.createTextNode("cancel");
+  button.appendChild(buttonText);
+  
+  button.addEventListener("click", (e) => removeTask(e));
+
+  element.appendChild(button);
+}
+
+// user can remove task before submitting tasks list
+function removeTask(e) {
+
+  const elementValue = e.target.parentNode.getElementsByTagName("p")[0].innerHTML;
+  
+  const tasksArray = Array.from(getLocalStorageTasks());
+
+  tasksArray.forEach(task => {
+      if (task == elementValue) {
+          const filteredArray = tasksArray.filter(item => item != elementValue);
+          
+          setLocalStorage(filteredArray);
+          refreshTasks();
+      }
+  })
+}
+
+function refreshTasks() {
+
+  ul.innerHTML = '<ul id="myUL">';
+  location.reload();
 }

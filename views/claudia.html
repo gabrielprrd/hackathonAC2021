@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Don't Stop Cláudia</title>
+    <link rel="stylesheet" href="../style/to-do-list.css">
 </head>
+
 <body>
-<h1>This is "Dont Stop Cláudia", a interactive gamefied to do list! Keep checking your chores so Cláudia keeps running!</h1>
+
+    <script src="../js/to-do-list.js"></script>
+
+    <h1>This is "Dont Stop Cláudia", a interactive gamefied to do list! Keep checking your chores so Cláudia keeps
+        running!</h1>
     <div>
         <h3>To Do List</h3>
-        
+
+        <div id="myDIV" class="header">
+            <h2>My To Do List</h2>
+            <input type="text" id="myInput" placeholder="Title...">
+            <span onclick="newElement()" class="addBtn">Add</span>
+        </div>
+
+        <ul id="myUL">
+            <li>Hit the gym</li>
+            <li class="checked">Pay bills</li>
+            <li>Meet George</li>
+            <li>Buy eggs</li>
+            <li>Read a book</li>
+            <li>Organize office</li>
+        </ul>
     </div>
-    
+
+
+
 </body>
+
 </html>

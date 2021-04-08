@@ -2,6 +2,11 @@ const ul = document.getElementById("myUL");
 
 window.onload = function () {
   renderTasks();
+  if (getLocalSto) {
+    
+  } else {
+    
+  }
 }
 
 // get persisted information from localStorage
@@ -33,7 +38,7 @@ function renderTask(taskValue) {
   // appendRemoveButton(p);
 }
 
-// Create a "close" button and append it to each list item
+/* Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -52,13 +57,14 @@ for (i = 0; i < close.length; i++) {
     var div = this.parentElement;
     div.style.display = "none";
   }
-}
+}*/
 
-// Add a "checked" symbol when clicking on a list item
+// Put item in done tasks list when clicked
 var list = document.querySelector('ul');
 list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
+    //Put in her the condition to put done item in 2nd list
+    didTask(ev);
   }
 }, false);
 
@@ -87,4 +93,14 @@ function newElement() {
       div.style.display = "none";
     }
   }
+}
+
+// make sure application has persistence on browser
+function setLocalStorage(doneTasks) {
+  localStorage.setItem("doneTasks", JSON.stringify(doneTasks));
+}
+
+function didTask(ev) {
+  var doneTask = ev.target;
+  document.getElementById("myDoneTasks").appendChild(doneTask);
 }

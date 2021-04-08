@@ -10,7 +10,11 @@ const tasks = [];
 function createTask(e) {
     e.preventDefault();
     const taskValue = addTaskInput.value;
-
+    var validRegex = /^[a-zA-Z0-9]+$/
+    if(!taskValue.match(validRegex)){
+        alert("Insert a only letters or numbers in the task name...")
+        return;
+    }
     //store input value on an array and then in localStorage
     tasks.push(taskValue);
     setLocalStorage(tasks);

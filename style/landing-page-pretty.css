@@ -51,4 +51,17 @@ button:hover {
   justify-content: center;
   align-items: center; 
 }
-  
+
+#myProgress {
+  width: 100%;
+  background-color: rgb(129, 26, 26);
+}
+
+#myBar {
+  width: 100%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white;
+}

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/landing-page-pretty.css">
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
     <title>Welcome to Don't Stop Claudia</title>
 </head>
 
@@ -13,17 +16,16 @@
     <h1>WELCOME! This is "Dont Stop Cláudia"</h1>
 
     <div class="formwrapper">
-        <form action="/tasks.html" method="post">
-
+        
             <div class=container>
-                <label for="uname"><b>Username</b></label>
-                <input type="text" minlength="4" maxlength="10" placeholder="Enter Username" name="uname" required>
-                <button type="submit">Login</button>
+                <label for="username"><b>Username</b></label>
+                <input id="input-login" type="text" minlength="4" maxlength="10" placeholder="Enter Username" name="uname" required>
+                <button id="login-button" type="submit">Login</button>
             </div>
 
-        </form>
     </div>
 
+    <script src="../js/login.js"></script>
 </body>
 
 </html>

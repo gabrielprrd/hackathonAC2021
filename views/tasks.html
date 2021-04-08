@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="">
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
     <title>Tasks</title>
 </head>
 <body>
     <div id="page-container">
-        <form action="" method="POST" id="task-form">
+
+        <div id="welcome-div">
+            <h1 id="welcome-h1"></h1>
+        </div>
+
+        <form action="" id="task-form">
             <!-- User can insert indivual tasks and then submit them at once -->
             <div class="input-task-container">
                 <input type="text" name="add-task-input" id="add-task-input">
                 <button id="add-task-button">Add</button>
-            </div>
+            </div>  
     
             <button id="submit-button" type="submit">Let's begin!</button>
         </form>
@@ -21,6 +29,6 @@
         <div id="tasks-list-container"></div>    
     </div>
     
-    <script src="../js/tasks.js"></script>
+    <script type="module" src="../js/tasks.js"></script>
 </body>
 </html>

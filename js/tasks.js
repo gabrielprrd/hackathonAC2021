@@ -114,7 +114,6 @@ function handleSubmit(e) {
 addTaskButton.addEventListener("click", createTask);
 submitButton.click(handleSubmit);
 
-
 window.onload = function() {
     getLocalStorageTasks();
     displayWelcomeMessage();

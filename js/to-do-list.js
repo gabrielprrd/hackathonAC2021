@@ -1,3 +1,38 @@
+const ul = document.getElementById("myUL");
+
+window.onload = function () {
+  renderTasks();
+}
+
+// get persisted information from localStorage
+function getLocalStorageTasks() {
+
+  const store = JSON.parse(localStorage.getItem("tasks"));
+  // turn object into array to use foreach function and display tasks
+  Array.from(store).forEach(elem => renderTask(elem));
+
+  return store;
+}
+
+function renderTasks() {
+  const tasks = JSON.parse(localStorage.getItem("tasks"));
+
+  Array.from(tasks).forEach(element => renderTask(element));
+}
+
+function renderTask(taskValue) {
+
+  // creates list item and append the task value
+  const li = document.createElement("li");
+  const text = document.createTextNode(taskValue);
+  li.appendChild(text);
+  ul.appendChild(li);
+  
+  // sets input value to every list item
+  // p.innerHTML = `<p class="task">${taskValue}</p>`;
+  // appendRemoveButton(p);
+}
+
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;

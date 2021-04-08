@@ -1,5 +1,7 @@
 // A simple way to fetch data quickly if we need
 
+
+
 /*
 async function getData() {
   const blob = await fetch(endpoint);

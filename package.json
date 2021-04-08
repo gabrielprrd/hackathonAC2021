@@ -1,0 +1,22 @@
+{
+  "name": "hackathonac2021",
+  "version": "1.0.0",
+  "description": "Gamified ToDo List for Hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielprrd/hackathonAC2021.git"
+  },
+  "author": "Mercury Software",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielprrd/hackathonAC2021/issues"
+  },
+  "homepage": "https://github.com/gabrielprrd/hackathonAC2021#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}

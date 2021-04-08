@@ -32,19 +32,13 @@ function createTask(e) {
 
 function renderTask(taskValue) {
 
-    // create paragraph
-    const p = document.createElement("p")
-    
-    // sets input value to paragraph
-    p.innerHTML = `<p class="task">${taskValue}</p>`
-    appendRemoveButton(p);
-
     // create task-container and add
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("task-container");
 
-    // append paragraph to task-container
-    taskContainer.appendChild(p);
+    // sets input value to paragraph
+    taskContainer.innerHTML = `<p class="task">${taskValue}</p>`
+    appendRemoveButton(taskContainer);    
 
     // append task container to task list container
     taskslistContainer.appendChild(taskContainer);
@@ -57,14 +51,21 @@ function refreshTasks() {
 }
 
 // user can remove task before submitting tasks list
-function removeTask(task) {
+function removeTask(e) {
+
+    const elementValue = e.target.parentNode.getElementsByTagName("p")[0].innerHTML;
+    console.log(elementValue);
     
-    // return new array without the task
-    const taskArray = Array.from(getLocalStorageTasks());
-    const filteredArray = taskArray.filter(element => element != task);
-    console.log(filteredArray)
-    setLocalStorage(filteredArray);
-    refreshTasks();
+    const tasksArray = Array.from(getLocalStorageTasks());
+
+    tasksArray.forEach(task => {
+        if (task == elementValue) {
+            const filteredArray = tasksArray.filter(item => item != elementValue);
+            
+            setLocalStorage(filteredArray);
+            refreshTasks();
+        }
+    })
 }
 
 // make sure application has persistence on browser
@@ -99,7 +100,7 @@ function appendRemoveButton(element) {
     const buttonText = document.createTextNode("cancel");
     button.appendChild(buttonText);
     
-    button.addEventListener("click", () => removeTask(e.target.value));
+    button.addEventListener("click", (e) => removeTask(e));
 
     element.appendChild(button);
 }

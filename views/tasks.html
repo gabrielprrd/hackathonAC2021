@@ -7,14 +7,20 @@
     <title>Tasks</title>
 </head>
 <body>
-    <form action="" method="POST">
-        <!-- User can insert indivual tasks and then submit them at once -->
-        <input type="text" name="task-input" id="task-input">
-        <button id="add-singular-task">Add</button>
-
-        <button type="submit">Let's begin!</button>
-    </form>
-
-    <script src=""></script>
+    <div id="page-container">
+        <form action="" method="POST" id="task-form">
+            <!-- User can insert indivual tasks and then submit them at once -->
+            <div class="input-task-container">
+                <input type="text" name="add-task-input" id="add-task-input">
+                <button id="add-task-button">Add</button>
+            </div>
+    
+            <button id="submit-button" type="submit">Let's begin!</button>
+        </form>
+    
+        <div id="tasks-list-container"></div>    
+    </div>
+    
+    <script src="../js/tasks.js"></script>
 </body>
 </html>

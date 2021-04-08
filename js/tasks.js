@@ -4,7 +4,14 @@ const addTaskInput = document.getElementById("add-task-input");
 const form = document.getElementById("task-form");
 const taskslistContainer = document.getElementById("tasks-list-container");
 const pageContainer = document.getElementById("page-container")
+const welcomeH1 = document.getElementById("welcome-h1");
 const tasks = [];
+
+// updates and display Welcome Message
+function displayWelcomeMessage() {
+    
+    welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${getLocalStorageUsername()}</h1>`
+}
 
 // gets input value and saves it task to an array 
 function createTask(e) {
@@ -42,9 +49,21 @@ function renderTask(taskValue) {
     taskslistContainer.appendChild(taskContainer);
 }
 
-// user can remove task before submitting tasks list
-function removeTask() {
+function refreshTasks() {
 
+    taskslistContainer.innerHTML = '<div id="tasks-list-container"><div>';
+    location.reload();
+}
+
+// user can remove task before submitting tasks list
+function removeTask(task) {
+    
+    // return new array without the task
+    const taskArray = Array.from(getLocalStorageTasks());
+    const filteredArray = taskArray.filter(element => element != task);
+    console.log(filteredArray)
+    setLocalStorage(filteredArray);
+    refreshTasks();
 }
 
 // make sure application has persistence on browser
@@ -53,11 +72,22 @@ function setLocalStorage(tasks) {
 }
 
 // get persisted information from localStorage
-function getLocalStorage() {
+function getLocalStorageTasks() {
 
     const store = JSON.parse(localStorage.getItem("tasks"));
     // turn object into array to use foreach function and display tasks
     Array.from(store).forEach(elem => renderTask(elem));
+
+    return store;
+}
+
+// get persisted information from localStorage
+function getLocalStorageUsername() {
+
+    const username = JSON.parse(localStorage.getItem("username"));
+    // turn object into array to use foreach function and display tasks
+
+    return username;
 }
 
 // append a remove button on each task before user decide to submit
@@ -67,7 +97,8 @@ function appendRemoveButton(element) {
     button.classList.add("remove-button");
     const buttonText = document.createTextNode("cancel");
     button.appendChild(buttonText);
-    button.addEventListener("click", removeTask);
+    
+    button.addEventListener("click", () => removeTask(e.target.value));
 
     element.appendChild(button);
 }
@@ -76,5 +107,6 @@ function appendRemoveButton(element) {
 addTaskButton.addEventListener("click", createTask);
 
 window.onload = function() {
-    getLocalStorage();
+    getLocalStorageTasks();
+    displayWelcomeMessage();
 }

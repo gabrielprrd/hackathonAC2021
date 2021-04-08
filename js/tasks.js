@@ -5,6 +5,7 @@ const form = document.getElementById("task-form");
 const taskslistContainer = document.getElementById("tasks-list-container");
 const pageContainer = document.getElementById("page-container")
 const welcomeH1 = document.getElementById("welcome-h1");
+const submitButton = $("#submit-button");
 const tasks = [];
 
 // updates and display Welcome Message
@@ -103,8 +104,16 @@ function appendRemoveButton(element) {
     element.appendChild(button);
 }
 
+function handleSubmit(e) {
+    e.preventDefault();
+
+    window.location.replace("http://localhost:5500/views/claudia.html");
+}
+
 // event listeners
 addTaskButton.addEventListener("click", createTask);
+submitButton.click(handleSubmit);
+
 
 window.onload = function() {
     getLocalStorageTasks();

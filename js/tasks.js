@@ -11,7 +11,7 @@ const ul = document.getElementById("tilesWrapper");
 var tasks = [];
 
 window.onload = function() {
-    setLocalStorage(tasks);
+    //setLocalStorage(tasks);
     addTaskButton.addEventListener("click", createTask);
     submitButton.click(handleSubmit);
     if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
@@ -88,7 +88,10 @@ function removeTask(e) {
             const filteredArray = tasksArray.filter(item => item != elementValue);
             
             setLocalStorage(filteredArray);
-            refreshTasks();
+            //refreshTasks();
+
+            
+
         }
     })
 }

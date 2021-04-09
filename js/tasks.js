@@ -6,7 +6,21 @@ const taskslistContainer = document.getElementById("tasks-list-container");
 const pageContainer = document.getElementById("page-container")
 const welcomeH1 = document.getElementById("welcome-h1");
 const submitButton = $("#submit-button");
-let tasks = [];
+var tasks = [];
+
+window.onload = function() {
+    setLocalStorage(tasks);
+    addTaskButton.addEventListener("click", createTask);
+    submitButton.click(handleSubmit);
+    if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
+
+        tasks = getLocalStorageTasks();
+        displayWelcomeMessage();
+    } else {
+        window.location.replace("http://localhost:5500/views/login.html");
+    }
+
+}
 
 // updates and display Welcome Message
 function displayWelcomeMessage() {
@@ -119,17 +133,4 @@ function handleSubmit(e) {
 }
 
 // event listeners
-addTaskButton.addEventListener("click", createTask);
-submitButton.click(handleSubmit);
 
-window.onload = function() {
-    
-    if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
-
-        tasks = getLocalStorageTasks();
-        displayWelcomeMessage();
-    } else {
-        window.location.replace("http://localhost:5500/views/login.html");
-    }
-
-}

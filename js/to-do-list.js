@@ -80,7 +80,7 @@ function completeTask(ev) {
 function displayWelcomeMessage() {
   
   const username = getLocalStorageUsername()
-  welcomeH1.innerHTML = `<h1 class="welcome-h1">Hey, ${username}! Here's your ToDone! list for today.</h1>
+  welcomeH1.innerHTML = `<h1 class="welcome-h1">Hey, ${username}! Here's your todo list for today.</h1>
   <h3>The goal is to prevent the rainbow bar to get empty by completing you daily tasks.</h3>
   <h3>No one can stop you!</h3>`
 }

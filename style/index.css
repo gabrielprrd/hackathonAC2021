@@ -105,6 +105,15 @@ body {
   font-family: 'Red Hat Display', sans-serif;
  }
 
+ #logo2 {
+  font-size: 5vw;
+
+  color: #fefefe;
+  margin-top: 80px;
+  font-family: 'Red Hat Display', sans-serif;
+ }
+
+
  #h3-logo {
    color: #fefefe;
    font-size: 3em;

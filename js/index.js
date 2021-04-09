@@ -1,31 +1,21 @@
-// A simple way to fetch data quickly if we need
+const loginButton = document.getElementById("login-button");
+const input = document.getElementById("input-login");
+loginButton.addEventListener("click", saveName);
 
+function saveName() {
+    const username = input.value;
+    var validRegex = /^[a-zA-Z0-9_\-]+$/
+    if(!username.match(validRegex)) {
+        alert("Username can´t be empty or have white spaces...")
+        return;
+    }
+    setLocalStorage(username)
 
-
-/*
-async function getData() {
-  const blob = await fetch(endpoint);
-  const payload = await blob.json();
-  console.log(payload);
-  return payload;
-}
-*/
-
-// jQuery version
-/*
-function successCallback(response) {
-  // do something with the data
+    window.location.replace("http://localhost:5500/views/tasks.html");
 }
 
-function errorCallback(request, status, error) {
-  // do something with the error
+// make sure application has persistence on browser
+function setLocalStorage(username) {
+    localStorage.setItem("username", JSON.stringify(username));
 }
 
-// perform an ajax http get request
-$.ajax({
-  url: 'http://localhost:8080/api/users',
-  async: true,
-  success: successCallback,
-  error: errorCallback
-});
-*/

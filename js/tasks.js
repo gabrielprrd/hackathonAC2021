@@ -6,6 +6,8 @@ const taskslistContainer = document.getElementById("tasks-list-container");
 const pageContainer = document.getElementById("page-container")
 const welcomeH1 = document.getElementById("welcome-h1");
 const submitButton = $("#submit-button");
+const ul = document.getElementById("tilesWrapper");
+
 var tasks = [];
 
 window.onload = function() {
@@ -25,7 +27,7 @@ window.onload = function() {
 // updates and display Welcome Message
 function displayWelcomeMessage() {
     
-    welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${getLocalStorageUsername()}</h1>`
+    welcomeH1.innerHTML = `<h1 class="welcome-h1">Welcome, ${getLocalStorageUsername()}</h1>`
 }
 
 // gets input value and saves it task to an array 
@@ -34,7 +36,7 @@ function createTask(e) {
     const taskValue = addTaskInput.value;
     var validRegex = /^[a-zA-Z0-9\s]+$/
     if(!taskValue.match(validRegex)){
-        alert("Insert a only letters or numbers in the task name...")
+        alert("Insert only letters or numbers in the task name...")
         return;
     }
     //store input value on an array and then in localStorage
@@ -50,16 +52,20 @@ function createTask(e) {
 
 function renderTask(taskValue) {
 
-    // create task-container and add
-    const taskContainer = document.createElement("div");
-    taskContainer.classList.add("task-container");
+    // create task-container and add a ul with li
+    // const taskContainer = document.createElement("div");
+    // taskContainer.classList.add("task-container");
+    const li = document.createElement("li");
+    const text = document.createTextNode(taskValue);
+    const p = document.createElement("p");
+    p.appendChild(text)
+    li.appendChild(p);
+    ul.appendChild(li);
 
-    // sets input value to paragraph
-    taskContainer.innerHTML = `<p class="task">${taskValue}</p>`
-    appendRemoveButton(taskContainer);    
+    appendRemoveButton(li);    
 
     // append task container to task list container
-    taskslistContainer.appendChild(taskContainer);
+    taskslistContainer.appendChild(ul);
 }
 
 function refreshTasks() {
@@ -72,8 +78,9 @@ function refreshTasks() {
 function removeTask(e) {
 
     const elementValue = e.target.parentNode.getElementsByTagName("p")[0].innerHTML;
+
     console.log(elementValue);
-    
+
     const tasksArray = Array.from(getLocalStorageTasks());
 
     tasksArray.forEach(task => {
@@ -129,8 +136,5 @@ function appendRemoveButton(element) {
 function handleSubmit(e) {
     e.preventDefault();
 
-    window.location.replace("http://localhost:5500/views/claudia.html");
+    window.location.replace("http://localhost:5500/views/todolist.html");
 }
-
-// event listeners
-

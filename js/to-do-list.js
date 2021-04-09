@@ -2,19 +2,13 @@ const ul = document.getElementById("myUL");
 
 window.onload = function () {
 
-
   if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
-
-    if (getLocalStorageTasks.length == 0) {
-      window.location.replace("http://localhost:5500/views/tasks.html"); 
-    }
-
+    
     displayWelcomeMessage();
     renderTasks();
   } else {
     window.location.replace("http://localhost:5500/views/login.html");
   }
-
 }
 
 // get persisted information from localStorage
@@ -32,7 +26,7 @@ function renderTasks() {
 
   if (tasks != null) {
     Array.from(tasks).forEach(element => renderTask(element));
-  }
+  } 
 }
 
 function renderTask(taskValue) {
@@ -49,7 +43,7 @@ function renderTask(taskValue) {
   appendRemoveButton(li);
 }
 
-// Click on a close button to hide the current list item
+/*// Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
 var i;
 for (i = 0; i < close.length; i++) {
@@ -66,23 +60,33 @@ list.addEventListener('click', function(ev) {
     //Put in her the condition to put done item in 2nd list
     didTask(ev);
   }
-}, false);
+}, false);*/
 
 // make sure application has persistence on browser
 function setLocalStorage(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function didTask(ev) {
+function completeTask(ev) {
   var doneTask = ev.target;
-  document.getElementById("myDoneTasks").appendChild(doneTask);
+
+  // sets to localStorage
+  //localStorage.setItem("done-tasks", JSON.stringify(doneTasks))
+
+  //document.getElementById("myDoneTasks").appendChild(doneTask);
 }
 
 // updates and display Welcome Message
 function displayWelcomeMessage() {
   
   const username = getLocalStorageUsername()
-  welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${username}</h1>`
+  welcomeH1.innerHTML = `<h1 class="welcome-h1">Hey, ${username}! Here's your ToDone! list for today.</h1>
+  <h3>The goal is to prevent the rainbow bar to get empty.</h3>
+  <h3>No one can stop you!</h3>`
+}
+
+function displayCongratulations() {
+  ul.innerHTML = `<div id="congrats-container"><img id="congrats-image" src="../resources/images/congratulations.svg" width="400px" height="400px"><p>Congratulations! All tasks are done!</p></div>`
 }
 
 // get persisted information from localStorage
@@ -99,7 +103,7 @@ function appendRemoveButton(element) {
     
   const button = document.createElement("button");
   button.classList.add("remove-button");
-  const buttonText = document.createTextNode("cancel");
+  const buttonText = document.createTextNode("done");
   button.appendChild(buttonText);
   
   button.addEventListener("click", (e) => removeTask(e));
@@ -119,6 +123,11 @@ function removeTask(e) {
           const filteredArray = tasksArray.filter(item => item != elementValue);
           
           setLocalStorage(filteredArray);
+
+          // we need to fetch done tasks from local storage
+          // then copy the elements + add the completed one
+          // set new array to localStorage complete tasks
+          //setCompleteTasksLocalStorage()
           refreshTasks();
       }
   })

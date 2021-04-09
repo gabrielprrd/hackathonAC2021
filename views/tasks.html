@@ -3,31 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../style/tasks.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="../resources/favicon/fast-forward.svg">
     <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js">
     </script>
-    <title>Tasks</title>
+    <title>ToDone! - Tasks</title>
 </head>
 <body>
-    <div id="page-container">
 
         <div id="welcome-div">
             <h1 id="welcome-h1"></h1>
         </div>
 
+        <div class="container">
+  
+            <div class="demo-flex-spacer"></div>
+            <form action="" id="task-form">
+          
+                <div class="webflow-style-input">
+                    <input type="email" name="add-task-input" id="add-task-input" placeholder="Type a task">
+                    <button id="add-task-button">Add</button>
+                </div>
+                <button id="submit-button" type="submit">Let's begin!</button>
+
+            </form>
+            <div class="demo-flex-spacer"></div>
+          
+          </div>
+
+        <!--
         <form action="" id="task-form">
-            <!-- User can insert indivual tasks and then submit them at once -->
             <div class="input-task-container">
                 <input type="text" name="add-task-input" id="add-task-input">
                 <button id="add-task-button">Add</button>
             </div>  
     
             <button id="submit-button" type="submit">Let's begin!</button>
-        </form>
-    
-        <div id="tasks-list-container"></div>    
-    </div>
+        </form>-->
+
+        <div id="tasks-list-container">
+            <ul class="tilesWrap" id="tilesWrapper">
+            </ul>
+        </div>    
+       
+
+       
     
     <script type="module" src="../js/tasks.js"></script>
 </body>

@@ -1,14 +1,10 @@
 const myul = document.getElementById("myUL");
 
-console.log(localStorage.getItem('tasks').length)
-
 function displayCongratulations() {
   myul.innerHTML = `<div id="congrats-container"><img id="congrats-image" src="../resources/images/congratulations.svg" width="400px" height="400px"><p>Congratulations! All tasks are done!</p></div>`
 }
-
-var i = 0;
-var taskscountintial = localStorage.getItem('tasks').length;
-var taskscount = localStorage.getItem('tasks').length;
+var taskscountintial = JSON.parse(localStorage.getItem('tasks')).length;
+var taskscount = JSON.parse(localStorage.getItem('tasks')).length;
 var timeStarting = new Date();
 var progress=100;
 console.log(timeStarting)
@@ -18,23 +14,24 @@ function move() {
     var elem = document.getElementById("myBar");
     var width = 10;
     var timeThatHavePassedInSeconds=timeStarting.getHours()*60*60+timeStarting.getSeconds()+timeStarting.getMinutes()*60;
-    var secondInOneDay = 24*60*60;
+    var secondInOneDay = timeThatHavePassedInSeconds+35;
+    //var secondInOneDay = 24*60*60;
 
-    console.log('seconds in one day'+secondInOneDay);
-    console.log('time '+timeThatHavePassedInSeconds);
-    console.log('minutes needed'+(secondInOneDay-timeThatHavePassedInSeconds)/(taskscountintial)/60);
-    console.log('tasks'+taskscountintial);
     var id = setInterval(frame, ((secondInOneDay-timeThatHavePassedInSeconds)/(taskscountintial))*1000);
     function frame() {
       console.log(taskscountintial)
-      if (width <= 0) {
+      if (Math.floor(width) <= 0) {
         clearInterval(id);
+        progress=progress - 100/taskscountintial 
+        width=1;
+        elem.style.width = width + "%";
+        now = new Date();
+        myul.innerHTML="<h1>u lose</h1>";
       }
       else if(tasksdone){
         taskscount--;
-        width+=taskscountintial/100;
+        width+=100/taskscountintial;
         elem.style.width = width + "%";
-        elem.innerHTML = width + "%";
         tasksdone=false;
       }
       else{
@@ -42,15 +39,23 @@ function move() {
         progress=progress - 100/taskscountintial 
         width=progress;
         elem.style.width = width + "%";
-        elem.innerHTML = width + "%"; 
         now = new Date();
+        if (Math.floor(width) <= 0) {
+          clearInterval(id);
+          progress=progress - 100/taskscountintial 
+          width=1;
+          elem.style.width = width + "%";
+          now = new Date();
+          myul.innerHTML="<h1>u lose</h1>";
+        }
+        id;
       }
-      move();
     }
   }
   else{
     clearInterval(id);
-    console.log('congratulations');
+
+    myul.innerHTML="<h1>Congratulations</h1>";;
   }
 }
 move();

@@ -2,7 +2,13 @@ const ul = document.getElementById("myUL");
 
 window.onload = function () {
 
+
   if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
+
+    if (getLocalStorageTasks.length == 0) {
+      window.location.replace("http://localhost:5500/views/tasks.html"); 
+    }
+
     displayWelcomeMessage();
     renderTasks();
   } else {

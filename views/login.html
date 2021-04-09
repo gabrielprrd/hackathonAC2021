@@ -8,22 +8,27 @@
     <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js">
     </script>
+    <link rel="stylesheet" href="../style/login.css">
     <title>Welcome to Don't Stop Claudia</title>
 </head>
 
 <body>
 
-    <h1>WELCOME! This is "Dont Stop Cláudia"</h1>
-
-    <div class="formwrapper">
-        
-            <div class=container>
-                <label for="username"><b>Username</b></label>
-                <input id="input-login" type="text" minlength="4" maxlength="10" placeholder="Enter Username" name="uname" required>
-                <button id="login-button" type="submit">Login</button>
-            </div>
-
-    </div>
+    <div class="container">
+  
+        <div class="demo-flex-spacer"></div>
+      
+        <div class="webflow-style-input">
+          <input id="input-login" minlength="4" maxlength="10" class="" type="email" placeholder="Type an username"></input>
+          <button type="submit" id="login-button">
+              <!-- <i class="icon ion-android-arrow-forward"></i> -->
+              Login
+            </button>
+        </div>
+      
+        <div class="demo-flex-spacer"></div>
+      
+      </div>
 
     <script src="../js/login.js"></script>
 </body>

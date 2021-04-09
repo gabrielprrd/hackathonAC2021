@@ -74,8 +74,9 @@ function didTask(ev) {
 
 // updates and display Welcome Message
 function displayWelcomeMessage() {
-    
-  welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${getLocalStorageUsername()}</h1>`
+  
+  const username = getLocalStorageUsername()
+  welcomeH1.innerHTML = `<h1 class="welcome-h1">Bem vindo ${username}</h1>`
 }
 
 // get persisted information from localStorage

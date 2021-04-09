@@ -21,7 +21,7 @@ body {
     --input-background: rgba(57, 63, 84, 0.8);
     --input-text-inactive: #7881A1;
     --input-text-active: #BFD2FF;
-   --color: #111fff;
+    --color: #111fff;
 }
 
 .demo-flex-spacer {

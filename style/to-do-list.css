@@ -127,3 +127,7 @@
   .congrats-image {
     
   }
+
+  button:hover {
+    border: 2px solid lightgreen;
+  }

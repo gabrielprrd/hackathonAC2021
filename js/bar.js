@@ -1,3 +1,11 @@
+const myul = document.getElementById("myUL");
+
+console.log(localStorage.getItem('tasks').length)
+
+function displayCongratulations() {
+  myul.innerHTML = `<div id="congrats-container"><img id="congrats-image" src="../resources/images/congratulations.svg" width="400px" height="400px"><p>Congratulations! All tasks are done!</p></div>`
+}
+
 var i = 0;
 var taskscountintial = localStorage.getItem('tasks').length;
 var taskscount = localStorage.getItem('tasks').length;

@@ -32,7 +32,7 @@ function displayWelcomeMessage() {
 function createTask(e) {
     e.preventDefault();
     const taskValue = addTaskInput.value;
-    var validRegex = /^[a-zA-Z0-9]+$/
+    var validRegex = /^[a-zA-Z0-9\s]+$/
     if(!taskValue.match(validRegex)){
         alert("Insert a only letters or numbers in the task name...")
         return;

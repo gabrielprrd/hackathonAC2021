@@ -4,7 +4,6 @@ window.onload = function () {
 
   if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
 
-    displayWelcomeMessage();
     renderTasks();
   } else {
     window.location.replace("http://localhost:5500/views/login.html");

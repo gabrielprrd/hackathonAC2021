@@ -45,7 +45,3 @@ function displayWelcomeMessage() {
   <h3>The goal is to prevent the rainbow bar to get empty by completing you daily tasks.</h3>
   <h3>No one can stop you!</h3>`;
 }
-
-function displayCongratulations() {
-  myul.innerHTML = `<div id="congrats-container"><img id="congrats-image" src="../resources/images/congratulations.svg" width="400px" height="400px"><p>Congratulations! All tasks are done!</p></div>`;
-}

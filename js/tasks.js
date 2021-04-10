@@ -1,143 +1,93 @@
-const inputTaskContainer = document.getElementById("input-task-container");
-const addTaskButton = document.getElementById("add-task-button");
-const addTaskInput = document.getElementById("add-task-input");
-const form = document.getElementById("task-form");
-const taskslistContainer = document.getElementById("tasks-list-container");
-const pageContainer = document.getElementById("page-container")
-const welcomeH1 = document.getElementById("welcome-h1");
-const submitButton = $("#submit-button");
-const ul = document.getElementById("tilesWrapper");
+import {
+  getLocalStorageUsername,
+  setLocalStorageTasks,
+  getLocalStorageTasks,
+} from './storage.js';
 
-var tasks = [];
+import { getDomElements } from './dom.js';
 
-window.onload = function() {
-    //setLocalStorage(tasks);
-    addTaskButton.addEventListener("click", createTask);
-    submitButton.click(handleSubmit);
-    if(getLocalStorageUsername() != undefined || getLocalStorageUsername() != null) {
+import appendRemoveButton from './appendRemoveButton.js';
+const domElements = getDomElements();
 
-        tasks = getLocalStorageTasks();
-        displayWelcomeMessage();
-    } else {
-        window.location.replace("http://localhost:5500/views/login.html");
+const {
+  inputTaskContainer,
+  addTaskButton,
+  addTaskInput,
+  taskForm,
+  taskslistContainer,
+  welcomeH1,
+  submitButton,
+  tilesWrapper,
+} = domElements;
+
+let tasks = [];
+
+window.onload = function () {
+  // setLocalStorageTasks(tasks);
+  addTaskButton.addEventListener('click', createTask);
+
+  if (
+    getLocalStorageUsername() != undefined ||
+    getLocalStorageUsername() != null
+  ) {
+    tasks = getLocalStorageTasks();
+    // turn object into array to use foreach function and display tasks
+    if (tasks !== null) {
+      Array.from(tasks).forEach((elem) => renderTask(elem, tilesWrapper));
+      taskslistContainer.appendChild(tilesWrapper);
     }
-
-}
+    displayWelcomeMessage();
+  } else {
+    window.location.replace('http://localhost:5500/views/login.html');
+  }
+};
 
 // updates and display Welcome Message
 function displayWelcomeMessage() {
-    
-    welcomeH1.innerHTML = `<h1 class="welcome-h1">Welcome, ${getLocalStorageUsername()}</h1>`
+  welcomeH1.innerHTML = `<h1 class="welcome-h1">Welcome, ${getLocalStorageUsername()}</h1>`;
 }
 
-// gets input value and saves it task to an array 
+// gets input value and saves it task to an array
 function createTask(e) {
-    e.preventDefault();
-    const taskValue = addTaskInput.value;
-    var validRegex = /^[a-zA-Z0-9\s]+$/
-    if(!taskValue.match(validRegex)){
-        alert("Insert only letters or numbers in the task name...")
-        return;
-    }
-    //store input value on an array and then in localStorage
-    tasks.push(taskValue);
-    setLocalStorage(tasks);
+  e.preventDefault();
+  const taskValue = addTaskInput.value;
+  var validRegex = /^[a-zA-Z0-9\s]+$/;
+  if (!taskValue.match(validRegex)) {
+    alert('Insert only letters or numbers in the task name...');
+    return;
+  }
+  //store input value on an array and then in localStorage
+  tasks.push(taskValue);
+  setLocalStorageTasks(tasks);
 
-    // creates a new input field while user doesn't submit
-    renderTask(taskValue);
-    
-    //clear input field
-    addTaskInput.value="";
+  // creates a new input field while user doesn't submit
+  renderTask(taskValue);
+  taskslistContainer.appendChild(tilesWrapper);
+
+  //clear input field
+  addTaskInput.value = '';
 }
 
 function renderTask(taskValue) {
+  // create task-container and add a ul with li
 
-    // create task-container and add a ul with li
-    // const taskContainer = document.createElement("div");
-    // taskContainer.classList.add("task-container");
-    const li = document.createElement("li");
-    const text = document.createTextNode(taskValue);
-    const p = document.createElement("p");
-    p.appendChild(text)
-    li.appendChild(p);
-    ul.appendChild(li);
+  const li = document.createElement('li');
+  const text = document.createTextNode(taskValue);
+  const p = document.createElement('p');
+  p.appendChild(text);
+  li.appendChild(p);
+  tilesWrapper.appendChild(li);
 
-    appendRemoveButton(li);    
+  appendRemoveButton(li, taskslistContainer);
 
-    // append task container to task list container
-    taskslistContainer.appendChild(ul);
-}
-
-function refreshTasks() {
-
-    taskslistContainer.innerHTML = '<div id="tasks-list-container"><div>';
-    location.reload();
-}
-
-// user can remove task before submitting tasks list
-function removeTask(e) {
-
-    const elementValue = e.target.parentNode.getElementsByTagName("p")[0].innerHTML;
-
-    console.log(elementValue);
-
-    const tasksArray = Array.from(getLocalStorageTasks());
-
-    tasksArray.forEach(task => {
-        if (task == elementValue) {
-            const filteredArray = tasksArray.filter(item => item != elementValue);
-            
-            setLocalStorage(filteredArray);
-            //refreshTasks();
-
-            
-
-        }
-    })
-}
-
-// make sure application has persistence on browser
-function setLocalStorage(tasks) {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// get persisted information from localStorage
-function getLocalStorageTasks() {
-
-    const store = JSON.parse(localStorage.getItem("tasks"));
-
-    // turn object into array to use foreach function and display tasks
-    if (store !== null) {
-        Array.from(store).forEach(elem => renderTask(elem));
-    }
-
-    return store;
-}
-
-// get persisted information from localStorage
-function getLocalStorageUsername() {
-
-    const username = JSON.parse(localStorage.getItem("username"));
-    // turn object into array to use foreach function and display tasks
-
-    return username;
-}
-
-// append a remove button on each task before user decide to submit
-function appendRemoveButton(element) {
-    
-    const button = document.createElement("button");
-    button.classList.add("remove-button");
-    const buttonText = document.createTextNode("cancel");
-    button.appendChild(buttonText);
-    
-    button.addEventListener("click", (e) => removeTask(e));
-
-    element.appendChild(button);
+  // append task container to task list container
+  taskslistContainer.appendChild(tilesWrapper);
 }
 
 function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    window.location.replace("http://localhost:5500/views/todolist.html");
+  window.location.replace('http://localhost:5500/views/todolist.html');
 }
+
+submitButton.addEventListener('click', (e) => handleSubmit(e));
